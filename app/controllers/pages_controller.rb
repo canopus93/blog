@@ -5,6 +5,6 @@ class PagesController < ApplicationController
   def about
   end
 
-  def sample
+  def sample_blog_post
   end
 end
