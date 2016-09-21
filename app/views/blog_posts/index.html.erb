@@ -1,0 +1,29 @@
+<% provide(:title, 'User List') %>
+<% provide(:heading, 'User List') %>
+<% provide(:subheading, 'List of User on Clean Blog') %>
+<% provide(:bg, 'about-bg.jpg') %>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<%= link_to 'Add User', new_user_path %>
+			<table class="table">
+				<tr>
+					<th class="table_header">Name</th>
+					<th class="table_header">Email</th>
+					<th class="table_header">Control</th>
+				</tr>
+				
+				<% @users.each do |user| %>
+					<tr>
+						<td><%= user.name %></td>
+						<td><%= user.email %></td>
+						<td><%= link_to 'Show', user_path(user) %> - <%= link_to 'Edit', edit_user_path(user) %> - <%= link_to 'Delete', user_path(user),
+              				method: :delete,
+              				data: { confirm: 'Are you sure to delete ' + user.name + '?' } %></td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>

@@ -3,17 +3,12 @@
 		<%= form_for :user, :html => {class: 'form-horizontal'}, url: yield(:url_target), method: yield(:method) do |f| %>
 
 			<% if @user.errors.any? %>
-				<div id="error_explanation" class="alert alert-danger">
+				<div id="error_explanation" class="col-sm-12 alert alert-danger">
 					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-					<h2>
+					<h2 class="text-center">
 						<%= pluralize(@user.errors.count, "error") %> prohibited
-						this user from being saved:
+						this user from being saved
 					</h2>
-					<ul>
-						<% @user.errors.full_messages.each do |msg| %>
-						<li><%= msg %></li>
-						<% end %>
-					</ul>
 				</div>
 			<% end %>
 
@@ -26,6 +21,16 @@
 			    <div class="col-sm-3"></div>
 			</div>
 
+			<% if @user.errors.include? :name %>
+				<div class="form-group col-sm-12">
+					<div class="col-sm-4"></div>
+					<div class="col-sm-5 text-center" style="color: red;">
+					    <%= 'Name ' + @user.errors.messages[:name].join(', ') %>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+			<% end %>
+
 			<div class="form-group col-sm-12">
 				<div class="col-sm-3"></div>
 				<%= f.label :email, class: 'control-label col-sm-2' %>
@@ -34,9 +39,21 @@
 			    </div>
 				<div class="col-sm-3"></div>
 			</div>
-			<%= f.submit class: 'btn btn-default center-block' %>
+
+			<% if @user.errors.include? :email %>
+				<div class="form-group col-sm-12">
+					<div class="col-sm-4"></div>
+					<div class="col-sm-5" style="color: red;">
+					    <%= 'Email ' + @user.errors.messages[:email].join(' and ') %>
+				    <div class="col-sm-3"></div>
+				</div>
+			<% end %>
+
+			<div class="col-sm-12">
+				<%= f.submit class: 'btn btn-default center-block' %>
+			</div>
 		<% end %>
-		<div class="text-center">
+		<div class="col-sm-12 text-center">
 			</br>
 			<%= link_to 'Back', users_path %>
 		</div>

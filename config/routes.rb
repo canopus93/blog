@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   resources :users
+  resources :blog_posts
 
   get '/about', to: 'pages#about'
   get '/sample_blog_post', to: 'pages#sample_blog_post'
