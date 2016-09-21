@@ -1,0 +1,8 @@
+<% provide(:title, 'Edit User') %>
+<% provide(:heading, 'Edit User') %>
+<% provide(:subheading, 'Edit User of Clean Blog') %>
+<% provide(:bg, 'about-bg.jpg') %>
+<% provide(:url_target, user_path(@user)) %>
+<% provide(:method, :patch) %>
+
+<%= render 'form' %>

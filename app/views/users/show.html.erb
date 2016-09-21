@@ -1,0 +1,21 @@
+<% provide(:title, 'View User') %>
+<% provide(:heading, 'View User') %>
+<% provide(:subheading, 'User of Clean Blog') %>
+<% provide(:bg, 'about-bg.jpg') %>
+
+<div class="container text-center">
+	<p>
+	  <strong>Name :</strong>
+	  <%= @user.name %>
+	</p>
+	 
+	<p>
+	  <strong>Email :</strong>
+	  <%= @user.email %>
+	</p>
+
+	<div>
+		<%= link_to 'Edit', edit_user_path(@user) %> |
+		<%= link_to 'Back', users_path %>
+	</div>
+</div>
