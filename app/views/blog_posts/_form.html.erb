@@ -1,0 +1,119 @@
+<div class="container">
+	<div class="row">
+		<%= form_for :blog_post, :html => {class: 'form-horizontal'}, url: yield(:url_target), method: yield(:method) do |f| %>
+
+			<% if @blog_post.errors.any? %>
+				<div id="error_explanation" class="col-sm-12 alert alert-danger">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<h2 class="text-center">
+						<%= pluralize(@blog_post.errors.count, "error") %> prohibited
+						this post from being saved
+					</h2>
+				</div>
+			<% end %>
+
+			<div class="form-group col-sm-12">
+				<div class="col-sm-3"></div>
+				<%= f.label :title, class: 'control-label col-sm-2' %>
+			    <div class="col-sm-4">
+			    	<%= f.text_field :title, class: 'form-control' %>
+			    </div>
+			    <div class="col-sm-3"></div>
+			</div>
+
+			<% if @blog_post.errors.include? :title %>
+				<div class="form-group col-sm-12">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-4 text-center" style="color: red;">
+					    <%= 'Title ' + @blog_post.errors.messages[:title].join(' ') %>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+			<% end %>
+
+			<div class="form-group col-sm-12">
+				<div class="col-sm-3"></div>
+				<%= f.label :summary, class: 'control-label col-sm-2' %>
+			    <div class="col-sm-4">
+			    	<%= f.text_field :summary, class: 'form-control' %>
+			    </div>
+			    <div class="col-sm-3"></div>
+			</div>
+
+			<% if @blog_post.errors.include? :summary %>
+				<div class="form-group col-sm-12">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-4 text-center" style="color: red;">
+					    <%= 'Summary ' + @blog_post.errors.messages[:summary].join(' ') %>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+			<% end %>
+
+			<div class="form-group col-sm-12">
+				<div class="col-sm-3"></div>
+				<%= f.label :content, class: 'control-label col-sm-2' %>
+			    <div class="col-sm-4">
+			    	<%= f.text_area :content, class: 'form-control' %>
+			    </div>
+			    <div class="col-sm-3"></div>
+			</div>
+
+			<% if @blog_post.errors.include? :content %>
+				<div class="form-group col-sm-12">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-4 text-center" style="color: red;">
+					    <%= 'Content ' + @blog_post.errors.messages[:content].join(' ') %>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+			<% end %>
+
+			<div class="form-group col-sm-12">
+				<div class="col-sm-3"></div>
+				<%= f.label :title_image_url, class: 'control-label col-sm-2' %>
+			    <div class="col-sm-4">
+			    	<%= f.text_field :title_image_url, class: 'form-control' %>
+			    </div>
+			    <div class="col-sm-3"></div>
+			</div>
+
+			<% if @blog_post.errors.include? :title_image_url %>
+				<div class="form-group col-sm-12">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-4 text-center" style="color: red;">
+					    <%= 'Image url ' + @blog_post.errors.messages[:title_image_url].join(' ') %>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+			<% end %>
+
+			<div class="form-group col-sm-12">
+				<div class="col-sm-3"></div>
+				<%= f.label :user_id, class: 'control-label col-sm-2' %>
+			    <div class="col-sm-4">
+			    	<%= f.collection_select :user_id, User.all, :id, :name, { prompt: true }, {class: 'form-control'} %>
+			    </div>
+				<div class="col-sm-3"></div>
+			</div>
+
+			<% if @blog_post.errors.include? :user %>
+				<div class="form-group col-sm-12">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-4 text-center" style="color: red;">
+					    <%= 'User ID ' + @blog_post.errors.messages[:user].join(' ') %>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+			<% end %>
+			
+			<div class="col-sm-12">
+				<%= f.submit class: 'btn btn-default center-block' %>
+			</div>
+		<% end %>
+		<div class="col-sm-12 text-center">
+			</br>
+			<%= link_to 'Back', blog_posts_path %>
+		</div>
+	</div>
+</div>

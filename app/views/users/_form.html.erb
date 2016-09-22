@@ -23,8 +23,8 @@
 
 			<% if @user.errors.include? :name %>
 				<div class="form-group col-sm-12">
-					<div class="col-sm-4"></div>
-					<div class="col-sm-5 text-center" style="color: red;">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-4 text-center" style="color: red;">
 					    <%= 'Name ' + @user.errors.messages[:name].join(' ') %>
 					</div>
 					<div class="col-sm-3"></div>
@@ -42,9 +42,10 @@
 
 			<% if @user.errors.include? :email %>
 				<div class="form-group col-sm-12">
-					<div class="col-sm-4"></div>
-					<div class="col-sm-5" style="color: red;">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-4" style="color: red;">
 					    <%= 'Email ' + @user.errors.messages[:email].join(' and ') %>
+					</div>
 				    <div class="col-sm-3"></div>
 				</div>
 			<% end %>

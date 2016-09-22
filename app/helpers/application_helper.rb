@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   def site_heading(page_title = '')
-  	if page_title == "Sample Post"
+  	if page_title == 'Blog Post'
   		render 'layouts/post_head'
   	else
   		render 'layouts/site_head'

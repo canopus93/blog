@@ -1,0 +1,29 @@
+<% provide(:title, 'Blog Posts') %>
+<% provide(:heading, 'Blog Posts') %>
+<% provide(:subheading, 'Blog Posts on Clean Blog') %>
+<% provide(:bg, 'post-bg.jpg') %>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<%= link_to 'Add Post', new_blog_post_path %>
+			<table class="table">
+				<tr>
+					<th class="table_header">Title</th>
+					<th class="table_header">Summary</th>
+					<th class="table_header">Control</th>
+				</tr>
+				
+				<% @blog_posts.each do |blog_post| %>
+					<tr>
+						<td><%= blog_post.title %></td>
+						<td><%= blog_post.summary %></td>
+						<td><%= link_to 'Show', blog_post_path(blog_post) %> - <%= link_to 'Edit', edit_blog_post_path(blog_post) %> - <%= link_to 'Delete', blog_post_path(blog_post),
+              				method: :delete,
+              				data: { confirm: 'Are you sure to delete ' + blog_post.title + '?' } %></td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>

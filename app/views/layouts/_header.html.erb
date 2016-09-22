@@ -38,8 +38,16 @@
     </div>
 </header>
 
-<style type="text/css">
-    .intro-header {
-        background-image: url(<%= image_path(yield(:bg)) %>)
-    }
-</style>
+<% if yield(:title) == 'Blog Post' %>
+    <style type="text/css">
+        .intro-header {
+            background-image: url(<%= yield(:bg) %>)
+        }
+    </style>
+<% else %>
+    <style type="text/css">
+        .intro-header {
+            background-image: url(<%= image_path(yield(:bg)) %>)
+        }
+    </style>
+<% end %>

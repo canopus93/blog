@@ -1,29 +1,30 @@
-<% provide(:title, 'User List') %>
-<% provide(:heading, 'User List') %>
-<% provide(:subheading, 'List of User on Clean Blog') %>
-<% provide(:bg, 'about-bg.jpg') %>
+<% provide(:title, 'Blog Posts') %>
+<% provide(:heading, 'Blog Posts') %>
+<% provide(:subheading, 'Blog Posts on Clean Blog') %>
+<% provide(:bg, 'post-bg.jpg') %>
 
 <div class="container">
 	<div class="row">
-		<div class="col-sm-12">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 			<%= link_to 'Add Post', new_blog_post_path %>
-			<table class="table">
-				<tr>
-					<th class="table_header">Title</th>
-					<th class="table_header">Summary</th>
-					<th class="table_header">Control</th>
-				</tr>
-				
-				<% @blog_posts.each do |blog_post| %>
-					<tr>
-						<td><%= blog_post.title %></td>
-						<td><%= blog_post.summary %></td>
-						<td><%= link_to 'Show', blog_post_path(blog_post) %> - <%= link_to 'Edit', edit_blog_post_path(blog_post) %> - <%= link_to 'Delete', blog_post_path(blog_post),
+			<% @blog_posts.each do |blog_post| %>
+				<% @user = User.find(blog_post.user_id) %>
+
+	            <div class="post-preview">
+                	<a href="<%= blog_post_path(blog_post) %>">
+	                    <h2 class="post-title">
+	                        <%= blog_post.title %>
+	                    </h2>
+	                    <h3 class="post-subtitle">
+	                        <%= blog_post.summary %>
+	                    </h3>
+	                </a>
+	                <p class="post-meta">Posted by <a href="#"><%= @user.name %></a> on <%= blog_post.created_at.strftime("%B %d, %Y") %> &nbsp; <%= link_to 'Edit', edit_blog_post_path(blog_post) %> - <%= link_to 'Delete', blog_post_path(blog_post),
               				method: :delete,
-              				data: { confirm: 'Are you sure to delete ' + blog_post.title + '?' } %></td>
-					</tr>
-				<% end %>
-			</table>
+              				data: { confirm: 'Are you sure to delete ' + blog_post.title + '?' } %> </p>
+	            </div>
+	            <hr>
+			<% end %>
 		</div>
 	</div>
 </div>

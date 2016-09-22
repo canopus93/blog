@@ -1,0 +1,28 @@
+<% provide(:title, 'Blog Post') %>
+<% provide(:bg, @blog_post.title_image_url) %>
+<% provide(:post_title, @blog_post.title) %>
+<% provide(:post_summary, @blog_post.summary) %>
+<% provide(:poster, @user.name) %>
+<% provide(:date_created, @blog_post.created_at.strftime("%B %d, %Y")) %>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="pager">
+                    <li class="previous">
+                        <%= link_to 'Edit', edit_blog_post_path(@blog_post) %>
+                    </li>
+                    <li class="previous">
+                        <%= link_to 'Delete', blog_post_path(@blog_post),
+                            method: :delete,
+                            data: { confirm: 'Are you sure to delete ' + @blog_post.title + '?' } %>
+                    </li>
+                </ul>
+                </br>
+                <%= @blog_post.content %>
+            </div>
+        </div>
+    </div>
+</article>
