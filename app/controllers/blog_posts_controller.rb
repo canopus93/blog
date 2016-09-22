@@ -1,6 +1,10 @@
 class BlogPostsController < ApplicationController
 	def index
-		@blog_posts = BlogPost.all
+		# @blog_posts = BlogPost.all
+		# @blog_post = BlogPostDecorator.new(BlogPost.all)
+		decorator = BlogPostDecorator.new
+		@blog_post = decorator.decorate_for_index(BlogPost.all)
+		raise 'a'
 	end
 
 	def show

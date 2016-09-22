@@ -10,17 +10,19 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="pager">
-                    <li class="previous">
-                        <%= link_to 'Edit', edit_blog_post_path(@blog_post) %>
-                    </li>
-                    <li class="previous">
-                        <%= link_to 'Delete', blog_post_path(@blog_post),
-                            method: :delete,
-                            data: { confirm: 'Are you sure to delete ' + @blog_post.title + '?' } %>
-                    </li>
-                </ul>
-                </br>
+                <% if logged_in? && (@user.id == session[:user_id]) %>
+                    <ul class="pager">
+                        <li class="previous">
+                            <%= link_to 'Edit', edit_blog_post_path(@blog_post) %>
+                        </li>
+                        <li class="previous">
+                            <%= link_to 'Delete', blog_post_path(@blog_post),
+                                method: :delete,
+                                data: { confirm: 'Are you sure to delete ' + @blog_post.title + '?' } %>
+                        </li>
+                    </ul>
+                    </br>
+                <% end %>
                 <%= @blog_post.content %>
             </div>
         </div>
