@@ -1,0 +1,86 @@
+<% provide(:title, 'Edit User') %>
+<% provide(:heading, 'Edit User') %>
+<% provide(:subheading, 'Edit User of Clean Blog') %>
+<% provide(:bg, 'about-bg.jpg') %>
+
+<div class="container">
+	<div class="row">
+		<%= form_for :user, :html => {class: 'form-horizontal'}, url: user_profile_path, method: :patch do |f| %>
+
+			<% if @user.errors.any? %>
+				<div id="error_explanation" class="col-sm-12 alert alert-danger">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<h2 class="text-center">
+						<%= pluralize(@user.errors.count, "error") %> prohibited
+						this user from being saved
+					</h2>
+				</div>
+			<% end %>
+
+			<div class="form-group col-sm-12">
+				<div class="col-sm-3"></div>
+				<%= f.label :name, class: 'control-label col-sm-2' %>
+			    <div class="col-sm-4">
+			    	<%= f.text_field :name, class: 'form-control' %>
+			    </div>
+			    <div class="col-sm-3"></div>
+			</div>
+
+			<% if @user.errors.include? :name %>
+				<div class="form-group col-sm-12">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-4 text-center" style="color: red;">
+					    <%= 'Name ' + @user.errors.messages[:name].join(' ') %>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+			<% end %>
+
+			<div class="form-group col-sm-12">
+				<div class="col-sm-3"></div>
+				<%= f.label :email, class: 'control-label col-sm-2' %>
+			    <div class="col-sm-4">
+			    	<%= f.text_field :email, class: 'form-control' %>
+			    </div>
+				<div class="col-sm-3"></div>
+			</div>
+
+			<% if @user.errors.include? :email %>
+				<div class="form-group col-sm-12">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-4" style="color: red;">
+					    <%= 'Email ' + @user.errors.messages[:email].join(' and ') %>
+					</div>
+				    <div class="col-sm-3"></div>
+				</div>
+			<% end %>
+
+			<div class="form-group col-sm-12">
+				<div class="col-sm-3"></div>
+				<%= f.label :password, class: 'control-label col-sm-2' %>
+			    <div class="col-sm-4">
+			    	<%= f.text_field :password, class: 'form-control' %>
+			    </div>
+				<div class="col-sm-3"></div>
+			</div>
+
+			<% if @user.errors.include? :password %>
+				<div class="form-group col-sm-12">
+					<div class="col-sm-5"></div>
+					<div class="col-sm-4" style="color: red;">
+					    <%= 'Password ' + @user.errors.messages[:password].join(' ') %>
+					</div>
+				    <div class="col-sm-3"></div>
+				</div>
+			<% end %>
+
+			<div class="col-sm-12">
+				<%= f.submit class: 'btn btn-default center-block' %>
+			</div>
+		<% end %>
+		<div class="col-sm-12 text-center">
+			</br>
+			<%= link_to 'Back', users_path %>
+		</div>
+	</div>
+</div>

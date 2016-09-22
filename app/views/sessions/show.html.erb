@@ -1,0 +1,26 @@
+<% provide(:title, 'View Profile') %>
+<% provide(:heading, 'View Profile') %>
+<% provide(:subheading, 'Profile of User currently logged in') %>
+<% provide(:bg, 'about-bg.jpg') %>
+
+<div class="container text-center">
+	<p>
+	  <strong>Name :</strong>
+	  <%= @user.name %>
+	</p>
+	 
+	<p>
+	  <strong>Email :</strong>
+	  <%= @user.email %>
+	</p>
+
+	<p>
+	  <strong>Password :</strong>
+	  <%= @user.password %>
+	</p>
+
+	<div>
+		<%= link_to 'Edit', user_profile_edit_path %> |
+		<%= link_to 'Back', root_path %>
+	</div>
+</div>
