@@ -20,7 +20,7 @@
 	</p>
 
 	<div>
-		<%= link_to 'Edit', edit_user_path(@user) %> |
-		<%= link_to 'Back', users_path %>
+		<%= @user.link_to_edit %> |
+		<%= @user.link_to_index %>
 	</div>
 </div>

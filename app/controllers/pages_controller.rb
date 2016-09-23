@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
   def index
-  	@blog_posts = BlogPost.all
+  	decorator = BlogPostsDecorator.new(self)
+		@blog_posts = decorator.decorate_for_index(BlogPost.all)
   end
 
   def about

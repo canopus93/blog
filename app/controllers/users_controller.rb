@@ -1,14 +1,17 @@
 class UsersController < ApplicationController
 	def index
-		@users = User.all
+		decorator = UsersDecorator.new(self)
+		@users = decorator.decorate_for_index(User.all)
 	end
 
 	def show
-		@user = User.find(params[:id])
+		decorator = UsersDecorator.new(self)
+		@user = decorator.decorate_for_show(User.find(params[:id]))
 	end
 
 	def new
 		@user = User.new
+		
 	end
 
 	def edit
