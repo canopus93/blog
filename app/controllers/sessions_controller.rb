@@ -16,6 +16,7 @@ class SessionsController < ApplicationController
   	user = User.find_by(email: params[:session][:email])
   	if user && (user.password == params[:session][:password])
   		session[:user_id] = user.id
+      session[:is_admin] = user.is_admin
   		redirect_to root_path
   	else
   		flash.now[:danger] = 'Invalid email/password combination'
@@ -24,18 +25,18 @@ class SessionsController < ApplicationController
   end
 
   def update
-	@user = User.find(session[:user_id])
+  	@user = User.find(session[:user_id])
 
-	if @user.update(user_params)
-		redirect_to user_profile_path
-	else
-		render 'edit'
-	end
+  	if @user.update(user_params)
+  		redirect_to user_profile_path
+  	else
+  		render 'edit'
+  	end
   end
 
   def destroy
   	log_out if logged_in?
-    redirect_to root_url
+    redirect_to root_path
   end
 
   private
