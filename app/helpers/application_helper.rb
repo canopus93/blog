@@ -16,4 +16,12 @@ module ApplicationHelper
   		render 'layouts/site_head'
   	end
   end
+
+  def logged_in?
+    !session[:user_id].nil?
+  end
+
+  def log_out
+    session.delete(:user_id)
+  end
 end

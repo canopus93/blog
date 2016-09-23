@@ -1,6 +1,6 @@
-<% provide(:title, 'View User') %>
-<% provide(:heading, 'View User') %>
-<% provide(:subheading, 'User of Clean Blog') %>
+<% provide(:title, 'View Profile') %>
+<% provide(:heading, 'View Profile') %>
+<% provide(:subheading, 'Profile of User currently logged in') %>
 <% provide(:bg, 'about-bg.jpg') %>
 
 <div class="container text-center">
@@ -20,7 +20,7 @@
 	</p>
 
 	<div>
-		<%= @user.link_to_edit %> |
-		<%= @user.link_to_index %>
+		<%= link_to 'Edit', user_profile_edit_path %> |
+		<%= link_to 'Back', root_path %>
 	</div>
 </div>

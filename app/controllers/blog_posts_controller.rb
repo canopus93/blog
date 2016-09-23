@@ -1,11 +1,12 @@
 class BlogPostsController < ApplicationController
 	def index
-		@blog_posts = BlogPost.all
+		decorator = BlogPostsDecorator.new(self)
+		@blog_posts = decorator.decorate_for_index(BlogPost.all)
 	end
 
 	def show
-		@blog_post = BlogPost.find(params[:id])
-		@user = User.find(@blog_post.user_id)
+		decorator = BlogPostsDecorator.new(self)
+		@blog_post = decorator.decorate_for_show(BlogPost.find(params[:id]))
 	end
 
 	def new
