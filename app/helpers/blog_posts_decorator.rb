@@ -21,7 +21,8 @@ class BlogPostsDecorator
 		:link_to_edit,
 		:link_to_delete,
 		:link_to_show,
-		:link_to_user
+		:link_to_user,
+		:tag
 	)
 
 	def decorate_for_index(blog_posts)
@@ -57,6 +58,7 @@ class BlogPostsDecorator
 		result.link_to_delete = link_to_delete(blog_post)
         result.link_to_show = link_to_show(blog_post)
     	result.link_to_user = link_to_user(result)
+    	result.tag = blog_post.tag.split
 
     	result
 	end

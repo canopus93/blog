@@ -13,7 +13,6 @@
             </div>
 
             <% @blog_posts.reverse_each do |blog_post| %>
-
                 <div class="post-preview">
                     <%= blog_post.link_to_show %>
                     <p class="post-meta">Posted by <%= blog_post.link_to_user %> on <%= blog_post.created_at %></p>
