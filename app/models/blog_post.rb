@@ -6,8 +6,9 @@ class BlogPost < ApplicationRecord
   validates :summary, length: { maximum: 150 }
   validates :content, presence: true
   validates :title_image_url, length: { maximum: 150 }
+  validates :tag, presence: true
 
   def self.search(search)
-  	where("title LIKE ? OR summary LIKE ?", "%#{search}%", "%#{search}%")
+  	where("title LIKE ? OR summary LIKE ? OR tag LIKE?", "%#{search}%", "%#{search}%", "%#{search}%")
   end
 end
