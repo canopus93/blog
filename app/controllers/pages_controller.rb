@@ -7,6 +7,11 @@ class PagesController < ApplicationController
   def about
   end
 
+  def recent_blog
+  	decorator = BlogPostsDecorator.new(self)
+	  	@blog_posts = decorator.decorate_for_index(BlogPost.search(params[:q]))
+  end
+
   def sample_blog_post
   end
 end

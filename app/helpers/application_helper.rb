@@ -21,7 +21,12 @@ module ApplicationHelper
     !session[:user_id].nil?
   end
 
+  def is_admin?
+    session[:is_admin]
+  end
+
   def log_out
-    session.delete(:user_id)
+    @_request.reset_session
+    #session.clear
   end
 end

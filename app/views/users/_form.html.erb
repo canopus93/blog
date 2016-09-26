@@ -43,7 +43,7 @@
 			<% if @user.errors.include? :email %>
 				<div class="form-group col-sm-12">
 					<div class="col-sm-5"></div>
-					<div class="col-sm-4" style="color: red;">
+					<div class="col-sm-4 text-center" style="color: red;">
 					    <%= 'Email ' + @user.errors.messages[:email].join(' and ') %>
 					</div>
 				    <div class="col-sm-3"></div>
@@ -62,10 +62,21 @@
 			<% if @user.errors.include? :password %>
 				<div class="form-group col-sm-12">
 					<div class="col-sm-5"></div>
-					<div class="col-sm-4" style="color: red;">
+					<div class="col-sm-4 text-center" style="color: red;">
 					    <%= 'Password ' + @user.errors.messages[:password].join(' ') %>
 					</div>
 				    <div class="col-sm-3"></div>
+				</div>
+			<% end %>
+
+			<% if is_admin? %>
+				<div class="form-group col-sm-12">
+					<div class="col-sm-3"></div>
+					<%= f.label :is_admin, 'Is admin?', class: 'control-label col-sm-2' %>
+					<div class="col-sm-4">
+						<%= f.check_box :is_admin, { class: '' }, "true", "false" %>
+					</div>
+					<div class="col-sm-3"></div>
 				</div>
 			<% end %>
 

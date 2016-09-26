@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922035649) do
+ActiveRecord::Schema.define(version: 20160923084350) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "blog_posts", force: :cascade do |t|
     t.string   "title",           limit: 45
@@ -20,7 +23,7 @@ ActiveRecord::Schema.define(version: 20160922035649) do
     t.integer  "user_id"
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
-    t.index ["user_id"], name: "index_blog_posts_on_user_id"
+    t.index ["user_id"], name: "index_blog_posts_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -29,6 +32,7 @@ ActiveRecord::Schema.define(version: 20160922035649) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.string   "password"
+    t.boolean  "is_admin"
   end
 
 end

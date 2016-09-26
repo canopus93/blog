@@ -14,13 +14,10 @@
 	  <%= @user.email %>
 	</p>
 
-	<p>
-	  <strong>Password :</strong>
-	  <%= @user.password %>
-	</p>
-
 	<div>
-		<%= @user.link_to_edit %> |
+		<% if is_admin? || @user.id == session[:user_id] %>
+			<%= @user.link_to_edit %> |
+		<% end %>
 		<%= @user.link_to_index %>
 	</div>
 </div>
