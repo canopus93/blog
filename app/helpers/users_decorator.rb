@@ -10,7 +10,8 @@ class UsersDecorator
 		:link_to_show,
 		:link_to_edit,
 		:link_to_delete,
-		:link_to_index
+		:link_to_index,
+		:activity_count
 	)
 
 	def initialize(controller_context)
@@ -42,6 +43,7 @@ class UsersDecorator
 		result.link_to_show = link_to_show(user)
 		result.link_to_edit = link_to_edit(user)
 		result.link_to_delete = link_to_delete(user)
+		result.activity_count = user.activity_count
 
 		result
 	end

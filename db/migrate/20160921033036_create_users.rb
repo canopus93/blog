@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :email,	limit: 45
       t.string :password
       t.boolean :is_admin
+      t.integer :activity_count
 
 
       t.timestamps

@@ -22,28 +22,31 @@ class BlogPostsDecorator
 		:link_to_delete,
 		:link_to_show,
 		:link_to_user,
+		:view_count,
 		:tag
 	)
 
 	def decorate_for_index(blog_posts)
 		results = []
 		users = User.all
+		tags = BlogPostTag.all
 		blog_posts.each do |blog_post|
 			user_name = users.select{|user| user.id == blog_post.user_id}.first.name
-			results << generate_decorator_result(blog_post: blog_post, user_name: user_name)
+			tag = 
+			results << generate_decorator_result(blog_post: blog_post, user_name: user_name, tag: tag)
 		end
 		results
 	end
 
 	def decorate_for_show(blog_post)
 		user_name = User.find(blog_post.user_id).name
-		
-		generate_decorator_result(blog_post: blog_post, user_name: user_name)
+		tag = BlogPostTag.joins(:blog_post_tag_details).where("blog_post_tag_details.blog_post_id = #{blog_post.id}").select(:"blog_post_tags.name")
+		generate_decorator_result(blog_post: blog_post, user_name: user_name, tag: tag)
 	end
 
 	private
 
-	def generate_decorator_result(blog_post:, user_name:)
+	def generate_decorator_result(blog_post:, user_name:, tag:)
 		result = BlogPostsDecoratorResult.new
 		result.id = blog_post.id
 		result.title = blog_post.title
@@ -58,7 +61,8 @@ class BlogPostsDecorator
 		result.link_to_delete = link_to_delete(blog_post)
         result.link_to_show = link_to_show(blog_post)
     	result.link_to_user = link_to_user(result)
-    	result.tag = blog_post.tag.split
+    	result.view_count = blog_post.view_count
+    	result.tag = tag.map { |t| t.name }
 
     	result
 	end

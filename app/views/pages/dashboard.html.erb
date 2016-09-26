@@ -1,0 +1,21 @@
+<% provide(:title, 'Dashboard') %>
+<% provide(:heading, 'Clean Blog') %>
+<% provide(:subheading, 'A Clean Blog Theme by Start Bootstrap') %>
+<% provide(:bg, 'home-bg.jpg') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+	    	<h3>Most viewed Blog Post</h3>
+	    	<div class="post-preview">
+	            <%= @blog_post.link_to_show %>
+	            <p class="post-meta">Posted by <%= @blog_post.link_to_user %> on <%= @blog_post.created_at %> - Viewed <%= @blog_post.view_count %> times.</p>
+	        </div>
+	        <hr>
+	        <h3>Most active User</h3>
+	        <div class="post-preview">
+	        	<p class="post-meta"><%= @user.name %> - Active <%= @user.activity_count %> times.</p>
+	        </div>
+	    </div>
+    </div>
+</div>

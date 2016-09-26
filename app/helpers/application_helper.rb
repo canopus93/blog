@@ -26,7 +26,13 @@ module ApplicationHelper
   end
 
   def log_out
-    @_request.reset_session
-    #session.clear
+    #@_request.reset_session
+    session.clear
+  end
+
+  def update_activity
+    @user = User.find(session[:user_id])
+    @user.activity_count = @user.activity_count + 1
+    @user.update_attribute(:activity_count, @user.activity_count)
   end
 end
