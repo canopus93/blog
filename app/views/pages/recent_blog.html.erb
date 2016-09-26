@@ -1,5 +1,5 @@
-<% provide(:title, 'Home') %>
-<% provide(:heading, 'Clean Blog') %>
+<% provide(:title, 'Search') %>
+<% provide(:heading, 'Recent Blog') %>
 <% provide(:subheading, 'A Clean Blog Theme by Start Bootstrap') %>
 <% provide(:bg, 'home-bg.jpg') %>
 
@@ -12,8 +12,17 @@
                 <% end %>
             </div>
 
-            <% @blog_posts.reverse_each do |blog_post| %>
+            <% if @blog_posts.blank? %>
+              <hr>
+              <h4 class="text-center">There are no articles containing the term '<%= params[:q] %>'.</h4>
+              <hr>
+            <% else %>
+              <hr>
+              <h4 class="text-center">There are <%= @blog_posts.count %> articles containing the term '<%= params[:q] %>'.</h4>
+              <hr>
+            <% end %>
 
+            <% @blog_posts.reverse_each do |blog_post| %>
                 <div class="post-preview">
                     <%= blog_post.link_to_show %>
                     <p class="post-meta">Posted by <%= blog_post.link_to_user %> on <%= blog_post.created_at %></p>

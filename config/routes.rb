@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/user_profile', to: 'sessions#show'
   get '/user_profile/edit', to: 'sessions#edit'
   patch '/user_profile/', to: 'sessions#update'
+  get '/recent_blog/', to: 'pages#recent_blog'
   
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
