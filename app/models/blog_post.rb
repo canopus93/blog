@@ -8,4 +8,9 @@ class BlogPost < ApplicationRecord
   validates :summary, length: { maximum: 250 }
   validates :content, presence: true
   validates :title_image_url, length: { maximum: 250 }
+
+  searchable do
+  	string :title
+  	string :summary
+  end
 end
