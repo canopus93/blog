@@ -1,6 +1,6 @@
 <div class="container">
 	<div class="row">
-		<%= form_for :blog_post, :html => {class: 'form-horizontal'}, url: yield(:url_target), method: yield(:method) do |f| %>
+		<%= form_for :blog_post, html: {class: 'form-horizontal'}, url: yield(:url_target), method: yield(:method) do |f| %>
 
 			<% if @blog_post.errors.any? %>
 				<div id="error_explanation" class="col-sm-12 alert alert-danger">

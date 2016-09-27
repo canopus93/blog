@@ -6,7 +6,8 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<%= link_to 'Add Post', new_blog_post_path %>
+			<%= link_to 'Add Post', new_blog_post_path %> &nbsp;
+			<%= link_to 'Import CSV', import_path if is_admin?%>
 			<hr>
 			<% @blog_posts.reverse_each do |blog_post| %>
 

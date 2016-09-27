@@ -1,5 +1,8 @@
 class BlogPostsController < ApplicationController
+	require 'csv'
+
 	def index
+		redirect_to root_path unless session[:user_id]
 		decorator = BlogPostsDecorator.new(self)
 		@blog_posts = decorator.decorate_for_index(BlogPost.order(created_at: :ASC))
 	end
@@ -14,16 +17,49 @@ class BlogPostsController < ApplicationController
 	end
 
 	def new
+		redirect_to root_path unless session[:user_id]
 		@blog_post = BlogPost.new
 	end
 
+	def upload
+		redirect_to root_path unless session[:is_admin]
+	end
+
+	def import
+		redirect_to root_path unless session[:is_admin]
+		file_path = params[:file].path
+		@rows = CSV.read(file_path)
+
+		ActiveRecord::Base.transaction do
+			@rows[1..-1].each do |row|
+				@user = User.where(email: row[1]).take
+				if(@user == nil)
+					@user = User.new(
+						name: row[0], 
+						email: row[1], 
+						password: 'default', 
+						is_admin: false, 
+						activity_count: 0
+					)
+					@user.save
+				end
+				@blog_post = BlogPost.new(title: row[2], summary: row[3], content: row[4], title_image_url: row[5], user: @user, view_count: 0)
+				@blog_post.save
+			end
+		end
+
+	    redirect_to root_path
+	end
+
 	def edit
+		redirect_to root_path unless session[:user_id]
 		@blog_post = BlogPost.find(params[:id])
 		decorator = BlogPostsDecorator.new(self)
 		@blog_post_tag = decorator.decorate_for_show(BlogPost.find(params[:id]))
 	end
 
 	def create
+		redirect_to root_path unless session[:user_id]
 		@blog_post = BlogPost.new(blog_post_params)
 
 		if @blog_post.valid?
@@ -39,6 +75,7 @@ class BlogPostsController < ApplicationController
 	end
 
 	def update
+		redirect_to root_path unless session[:user_id]
 		@blog_post = BlogPost.find(params[:id])
 
 		if @blog_post.valid?
@@ -53,6 +90,7 @@ class BlogPostsController < ApplicationController
 	end
 
 	def destroy
+		redirect_to root_path unless session[:user_id]
 		@blog_post = BlogPost.find(params[:id])
 		@blog_post.destroy
 

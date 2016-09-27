@@ -1,0 +1,20 @@
+<% provide(:title, 'Import CSV') %>
+<% provide(:heading, 'Import CSV') %>
+<% provide(:subheading, 'Add Post from CSV file to Clean Blog') %>
+<% provide(:bg, 'post-bg.jpg') %>
+
+<div class="container">
+	<div class="row">
+		<%= form_tag({action: :import}, multipart: true, class: "form-horizontal", enforce_utf8: false) do %>
+		  	<div class="form-group col-sm-12">
+				<div class="col-sm-3"></div>
+				<%= label_tag :file, nil, class: 'control-label col-sm-2' %>
+			    <div class="col-sm-4">
+			    	<%= file_field_tag :file, class: 'form-control' %>
+			    </div>
+			    <div class="col-sm-3"></div>
+			</div>
+			<%= submit_tag 'Submit', class: 'btn btn-default center-block' %>
+		<% end %>
+	</div>
+</div>

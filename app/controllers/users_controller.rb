@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 	def index
 		decorator = UsersDecorator.new(self)
-		@users = decorator.decorate_for_index(User.all)
+		@users = decorator.decorate_for_index(User.order(id: :ASC))
 	end
 
 	def show

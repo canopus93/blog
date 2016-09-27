@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   patch '/user_profile', to: 'sessions#update'
   get '/recent_blog', to: 'pages#recent_blog'
   get '/dashboard', to: 'pages#dashboard'
+  get '/import', to: 'blog_posts#upload'
+  post '/import', to: 'blog_posts#import'
   
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

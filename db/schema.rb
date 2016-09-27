@@ -25,10 +25,10 @@ ActiveRecord::Schema.define(version: 20160926090007) do
   end
 
   create_table "blog_posts", force: :cascade do |t|
-    t.string   "title",           limit: 45
-    t.string   "summary",         limit: 150
+    t.string   "title",           limit: 150
+    t.string   "summary",         limit: 250
     t.text     "content"
-    t.string   "title_image_url", limit: 150
+    t.string   "title_image_url", limit: 250
     t.integer  "user_id"
     t.integer  "view_count"
     t.datetime "created_at",                  null: false

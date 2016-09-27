@@ -4,8 +4,8 @@ class BlogPost < ApplicationRecord
   has_many :tag, through: :blog_post_tag
 
   validates :title, presence: true,
-					 length: { maximum: 45 }
-  validates :summary, length: { maximum: 150 }
+					 length: { maximum: 150 }
+  validates :summary, length: { maximum: 250 }
   validates :content, presence: true
-  validates :title_image_url, length: { maximum: 150 }
+  validates :title_image_url, length: { maximum: 250 }
 end
