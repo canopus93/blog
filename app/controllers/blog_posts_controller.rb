@@ -81,10 +81,10 @@ class BlogPostsController < ApplicationController
 					@tag.save
 				end
 
-				@blog_post_tag = BlogPostTag.new
-				@blog_post_tag.blog_post = BlogPost.find(id_blog_post)
-				@blog_post_tag.tag = @tag
-				@blog_post_tag.save
+				# @blog_post_tag = BlogPostTag.new
+				# @blog_post_tag.blog_post = BlogPost.find(id_blog_post)
+				# @blog_post_tag.tag = @tag
+				# @blog_post_tag.save
 
 				blog_post = BlogPost.find(id_blog_post)
 				BlogPostTag.new(blog_post: blog_post, tag: @tag)
