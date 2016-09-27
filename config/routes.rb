@@ -13,8 +13,9 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   get '/user_profile', to: 'sessions#show'
   get '/user_profile/edit', to: 'sessions#edit'
-  patch '/user_profile/', to: 'sessions#update'
-  get '/recent_blog/', to: 'pages#recent_blog'
+  patch '/user_profile', to: 'sessions#update'
+  get '/recent_blog', to: 'pages#recent_blog'
+  get '/dashboard', to: 'pages#dashboard'
   
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

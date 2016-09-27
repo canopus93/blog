@@ -6,7 +6,7 @@ class CreateBlogPosts < ActiveRecord::Migration[5.0]
       t.text :content
       t.string :title_image_url,  limit: 150
       t.references :user, foreign_key: true
-      t.string :tag
+      t.integer :view_count
 
       t.timestamps
     end

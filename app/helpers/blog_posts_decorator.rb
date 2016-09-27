@@ -21,29 +21,53 @@ class BlogPostsDecorator
 		:link_to_edit,
 		:link_to_delete,
 		:link_to_show,
+		:link_to_blog,
 		:link_to_user,
-		:tag
+		:view_count,
+		:tag,
+		:tag_joined
+	)
+
+	TagDecoratorResult = Struct.new(
+		:id,
+		:name,
+		:use_count
 	)
 
 	def decorate_for_index(blog_posts)
 		results = []
 		users = User.all
+		tag = Tag.all
 		blog_posts.each do |blog_post|
 			user_name = users.select{|user| user.id == blog_post.user_id}.first.name
-			results << generate_decorator_result(blog_post: blog_post, user_name: user_name)
+			results << generate_decorator_result(blog_post: blog_post, user_name: user_name, tag: tag)
 		end
 		results
 	end
 
 	def decorate_for_show(blog_post)
 		user_name = User.find(blog_post.user_id).name
-		
-		generate_decorator_result(blog_post: blog_post, user_name: user_name)
+		tag = Tag.joins(:blog_post_tag).where("blog_post_tags.blog_post_id = #{blog_post.id}").select(:"tags.name")
+		generate_decorator_result(blog_post: blog_post, user_name: user_name, tag: tag)
+	end
+
+	def decorate_most_used_tag
+		results = []
+		@tags = BlogPostTag.group('tag_id').order('count(*) DESC').limit(5).count
+		@tags.each do |tag|
+			result = TagDecoratorResult.new
+			result.id = tag[0]
+			@name = Tag.find(tag[0]).name
+			result.name = @controller_context.helpers.link_to @name, recent_blog_path(q: @name)
+			result.use_count = tag[1]
+			results << result
+		end
+		results
 	end
 
 	private
 
-	def generate_decorator_result(blog_post:, user_name:)
+	def generate_decorator_result(blog_post:, user_name:, tag:)
 		result = BlogPostsDecoratorResult.new
 		result.id = blog_post.id
 		result.title = blog_post.title
@@ -57,8 +81,12 @@ class BlogPostsDecorator
 		result.link_to_edit = link_to_edit(blog_post)
 		result.link_to_delete = link_to_delete(blog_post)
         result.link_to_show = link_to_show(blog_post)
+        result.link_to_blog = link_to_blog(blog_post)
     	result.link_to_user = link_to_user(result)
-    	result.tag = blog_post.tag.split
+    	result.view_count = blog_post.view_count
+    	result.tag = tag.map { |t| t.name }
+    	result.tag_joined = result.tag.join(' ')
+
 
     	result
 	end
@@ -68,7 +96,7 @@ class BlogPostsDecorator
 	end
 
 	def link_to_user(result)
-		@controller_context.helpers.link_to result.user_name, "#"
+		@controller_context.helpers.link_to result.user_name, user_path(result.user_id)
 	end
 
 	def link_to_show(blog_post)
@@ -76,6 +104,10 @@ class BlogPostsDecorator
 			content_tag(:h2, blog_post.title, class: 'post-title') +
 			content_tag(:h3, blog_post.summary, class: 'post-subtitle')
 		end
+	end
+
+	def link_to_blog(blog_post)
+		@controller_context.helpers.link_to blog_post.title, blog_post_path(blog_post.id)
 	end
 
 	def link_to_edit(blog_post)

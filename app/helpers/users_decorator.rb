@@ -7,10 +7,12 @@ class UsersDecorator
 		:name,
 		:email,
 		:password,
+		:link_to_user,
 		:link_to_show,
 		:link_to_edit,
 		:link_to_delete,
-		:link_to_index
+		:link_to_index,
+		:activity_count
 	)
 
 	def initialize(controller_context)
@@ -39,9 +41,11 @@ class UsersDecorator
 		result.email = user.email
 		result.password = user.password
 		result.link_to_index = link_to_index
+		result.link_to_user = link_to_user(user)
 		result.link_to_show = link_to_show(user)
 		result.link_to_edit = link_to_edit(user)
 		result.link_to_delete = link_to_delete(user)
+		result.activity_count = user.activity_count
 
 		result
 	end
@@ -53,6 +57,10 @@ class UsersDecorator
 	# def link_to_new
 	# 	@controller_context.helpers.link_to 'New', new_users_path
 	# end
+
+	def link_to_user(user)
+		@controller_context.helpers.link_to user.name, user_path(user.id)
+	end
 
 	def link_to_show(user)
 		@controller_context.helpers.link_to 'Show', user_path(user.id)

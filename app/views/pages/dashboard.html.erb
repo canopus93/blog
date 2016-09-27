@@ -1,0 +1,60 @@
+<% provide(:title, 'Dashboard') %>
+<% provide(:heading, 'Clean Blog') %>
+<% provide(:subheading, 'A Clean Blog Theme by Start Bootstrap') %>
+<% provide(:bg, 'home-bg.jpg') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        	<hr>
+	    	<h3 class="text-center">Most viewed Blog Post</h3>
+	    	<table class="table">
+				<tr>
+					<th class="table_header">Title</th>
+					<th class="table_header">Posted by</th>
+					<th class="table_header">Created at</th>
+					<th class="table_header">View Count</th>
+				</tr>
+		    	<% @blog_posts.each do |blog_post| %>
+		    		<tr>
+		    			<td><%= blog_post.link_to_blog %></td>
+		    			<td><%= blog_post.link_to_user %></td>
+		    			<td><%= blog_post.created_at %></td>
+		    			<td><%= blog_post.view_count %></td>
+		    		</tr>
+		    	<% end %>
+	    	</table>
+	        <hr>
+	        <h3 class="text-center">Most active User</h3>
+	        <table class="table">
+				<tr>
+					<th class="table_header">Name</th>
+					<th class="table_header">Email</th>
+					<th class="table_header">Interaction Count</th>
+				</tr>
+				
+				<% @users.each do |user| %>
+					<tr>
+						<td><%= user.link_to_user %></td>
+						<td><%= user.email %></td>
+						<td><%= user.activity_count %></td>
+					</tr>
+				<% end %>
+			</table>
+	        <hr>
+	        <h3 class="text-center">Most used Tag</h3>
+	        <table class="table">
+	        	<tr>
+					<th class="table_header">Tag Name</th>
+					<th class="table_header">Blog Count</th>
+	        	</tr>
+	        	<% @tags.each do |tag| %>
+	        		<tr>
+	        			<td><%= tag.name %></td>
+	        			<td><%= tag.use_count %></td>
+	        		</tr>
+	        	<% end %>
+	        </table>
+	    </div>
+    </div>
+</div>
