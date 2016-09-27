@@ -4,5 +4,6 @@
 <% provide(:bg, 'post-bg.jpg') %>
 <% provide(:url_target, blog_post_path(@blog_post)) %>
 <% provide(:method, :patch) %>
+<% provide(:tag, @blog_post_tag.tag_joined) %>
 
 <%= render 'form' %>

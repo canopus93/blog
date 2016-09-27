@@ -92,7 +92,7 @@
 				<div class="col-sm-3"></div>
 				<%= label_tag :tag, 'Tag', class: 'control-label col-sm-2' %>
 			    <div class="col-sm-4">
-			    	<%= text_field_tag :tag, '', class: 'form-control', placeholder: 'Tag separated by space' %>
+			    	<%= text_field_tag :tag, yield(:tag), class: 'form-control', placeholder: 'Tag separated by space' %>
 			    </div>
 			    <div class="col-sm-3"></div>
 			</div>

@@ -1,7 +1,7 @@
 class BlogPostsController < ApplicationController
 	def index
 		decorator = BlogPostsDecorator.new(self)
-		@blog_posts = decorator.decorate_for_index(BlogPost.order('created_at ASC'))
+		@blog_posts = decorator.decorate_for_index(BlogPost.order(created_at: :ASC))
 	end
 
 	def show
@@ -19,6 +19,8 @@ class BlogPostsController < ApplicationController
 
 	def edit
 		@blog_post = BlogPost.find(params[:id])
+		decorator = BlogPostsDecorator.new(self)
+		@blog_post_tag = decorator.decorate_for_show(BlogPost.find(params[:id]))
 	end
 
 	def create
@@ -27,7 +29,7 @@ class BlogPostsController < ApplicationController
 		if @blog_post.valid?
 			ActiveRecord::Base.transaction do
 				@blog_post.save
-				save_tag(@blog_post.id)
+				save_tag(id_blog_post: @blog_post.id, save_type: 'new')
 			end
 				#raise 'a'
 			redirect_to @blog_post
@@ -39,8 +41,11 @@ class BlogPostsController < ApplicationController
 	def update
 		@blog_post = BlogPost.find(params[:id])
 
-		if @blog_post.update(blog_post_params)
-			save_tag(params[:id])
+		if @blog_post.valid?
+			ActiveRecord::Base.transaction do
+				@blog_post.update(blog_post_params)
+				save_tag(id_blog_post: params[:id], save_type: 'update')
+			end
 			redirect_to @blog_post
 		else
 			render 'edit'
@@ -59,20 +64,31 @@ class BlogPostsController < ApplicationController
 			params.require(:blog_post).permit(:title, :summary, :content, :title_image_url, :user_id, :view_count)
 		end
 
-		def save_tag(id_blog_post)
-			@tags = params[:tag].split(' ')
-			@tags.each do |tag|
-				@blog_post_tag = BlogPostTag.where(name: tag).take
-				if(@blog_post_tag == nil)
-					@blog_post_tag = BlogPostTag.new
-					@blog_post_tag.name = tag
-					@blog_post_tag.save
+		def save_tag(id_blog_post:, save_type:)
+			if(save_type == 'update')
+				@blog_post_tag_to_delete = BlogPostTag.where(blog_post_id: id_blog_post)
+				
+				@blog_post_tag_to_delete.each do |tag_detail|
+					tag_detail.destroy
+				end
+			end
+			@tag_params = params[:tag].split(' ')
+			@tag_params.each do |tag_param|
+				@tag = Tag.where(name: tag_param).take
+				if(@tag == nil)
+					@tag = Tag.new(name: tag_param)
+					# @tag.name = tag_param
+					@tag.save
 				end
 
-				@blog_post_tag_detail = BlogPostTagDetail.new
-				@blog_post_tag_detail.blog_post = BlogPost.find(id_blog_post)
-				@blog_post_tag_detail.blog_post_tag = @blog_post_tag
-				@blog_post_tag_detail.save
+				@blog_post_tag = BlogPostTag.new
+				@blog_post_tag.blog_post = BlogPost.find(id_blog_post)
+				@blog_post_tag.tag = @tag
+				@blog_post_tag.save
+
+				blog_post = BlogPost.find(id_blog_post)
+				BlogPostTag.new(blog_post: blog_post, tag: @tag)
+						   .save
 			end 
 		end
 end
