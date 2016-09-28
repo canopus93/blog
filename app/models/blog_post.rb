@@ -12,5 +12,8 @@ class BlogPost < ApplicationRecord
   searchable do
   	string :title
   	string :summary
+
+  	text :title
+  	text :summary
   end
 end

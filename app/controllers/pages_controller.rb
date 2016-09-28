@@ -16,10 +16,16 @@ class PagesController < ApplicationController
   end
 
   def recent_blog
+    @search = BlogPost.search { keywords(params[:q]) }
   	decorator = BlogPostsDecorator.new(self)
-	  # @blog_posts = decorator.decorate_for_index(BlogPost.search(params[:q]))
-    # BlogPost.joins(blog_post_tag_details: :blog_post_tag).where("blog_posts.title LIKE ? OR blog_posts.summary LIKE ? OR blog_post_tags.name LIKE ?", "%asd%", "%asd%", "%asd%")
-    @blog_posts = decorator.decorate_for_index(BlogPost.joins(blog_post_tag: :tag).where("blog_posts.title LIKE ? OR blog_posts.summary LIKE ? OR tags.name LIKE ?", "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}").distinct)
+    @blog_posts = decorator.decorate_for_index(@search.results)
+
+    # @blog_posts = decorator.decorate_for_index(
+    #    BlogPost.joins(blog_post_tag: :tag)
+    #            .where("blog_posts.title LIKE ? OR blog_posts.summary LIKE ? OR tags.name LIKE ?", 
+    #                   "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}")
+    #            .distinct
+    #  )
   end
 
   def sample_blog_post

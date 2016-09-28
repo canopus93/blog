@@ -63,8 +63,11 @@ GEM
     ffi (1.9.14)
     font-awesome-rails (4.6.3.1)
       railties (>= 3.2, < 5.1)
+    foreman (0.82.0)
+      thor (~> 0.19.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    highline (1.7.8)
     i18n (0.7.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -91,9 +94,13 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    options (2.3.2)
     pg (0.19.0)
     pkg-config (1.1.7)
     pr_geohash (1.0.0)
+    progress_bar (1.0.5)
+      highline (~> 1.6)
+      options (~> 2.3.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -187,10 +194,12 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   font-awesome-rails
+  foreman
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
   pg
+  progress_bar
   pry
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
